@@ -37,7 +37,6 @@ poo-project/
 │   │   └── ComponenteUtils.java
 │   └── Main.java           # Ponto de entrada
 ├── bin/                    # Classes compiladas
-├── docs/                   # Documentação
 ├── run.bat                 # Script para compilar e executar
 └── README.md
 ```
