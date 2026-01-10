@@ -36,4 +36,50 @@ public class Estacionamento {
     public List<Ticket> getListaTickets() {
         return listaTickets;
     }
+
+    // Busca a primeira vaga disponivel do tipo especificado.
+    public Vaga buscarVagaDisponivel(String tipo) {
+        for (Vaga vaga : listaVagas) {
+            if (vaga.getTipo().equals(tipo) && !vaga.isOcupada()) {
+                return vaga;
+            }
+        }
+        return null;
+    }
+
+    // Busca um veiculo pela placa nos tickets ativos.
+    public Veiculo buscarVeiculoPorPlaca(String placa) {
+        for (Ticket ticket : listaTickets) {
+            if (ticket.getHoraSaida() == null && ticket.getVeiculo().getPlaca().equals(placa)) {
+                return ticket.getVeiculo();
+            }
+        }
+        return null;
+    }
+
+    // Registra a entrada de um veiculo no estacionamento.
+    public Ticket registrarEntrada(Veiculo veiculo) {
+        // Verifica se veiculo ja esta no estacionamento
+        if (buscarVeiculoPorPlaca(veiculo.getPlaca()) != null) {
+            return null;
+        }
+
+        // Busca vaga disponivel
+        Vaga vaga = buscarVagaDisponivel(veiculo.getTipo());
+        if (vaga == null) {
+            return null;
+        }
+
+        // Ocupa a vaga
+        vaga.ocupar();
+
+        // Cria o ticket
+        contadorTickets++;
+        Ticket ticket = new Ticket(contadorTickets, veiculo, vaga);
+
+        // Adiciona ticket na lista
+        listaTickets.add(ticket);
+
+        return ticket;
+    }
 }
