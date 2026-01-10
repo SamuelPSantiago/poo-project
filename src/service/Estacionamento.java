@@ -155,4 +155,49 @@ public class Estacionamento {
             caminhaoDisponiveis
         );
     }
+
+    // Conta vagas ocupadas por tipo.
+    public int contarVagasOcupadas(String tipo) {
+        int count = 0;
+        for (Vaga vaga : listaVagas) {
+            if (vaga.getTipo().equals(tipo) && vaga.isOcupada()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // Gera relatorio de ocupacao do estacionamento.
+    public String gerarRelatorio() {
+        int motoTotal = 10;
+        int carroTotal = 20;
+        int caminhaoTotal = 5;
+        int total = motoTotal + carroTotal + caminhaoTotal;
+
+        int motoOcupadas = contarVagasOcupadas("Moto");
+        int carroOcupadas = contarVagasOcupadas("Carro");
+        int caminhaoOcupadas = contarVagasOcupadas("Caminhao");
+        int totalOcupadas = motoOcupadas + carroOcupadas + caminhaoOcupadas;
+
+        double percentualGeral = (totalOcupadas * 100.0) / total;
+
+        return String.format(
+            "============ RELATORIO DE OCUPACAO ============\n\n" +
+            "| Tipo       | Total | Ocupadas | Disponiveis |\n" +
+            "|------------|-------|----------|-------------+\n" +
+            "| Moto       |  %2d   |    %2d    |     %2d |\n" +
+            "| Carro      |  %2d   |    %2d    |     %2d |\n" +
+            "| Caminhao   |  %2d   |    %2d    |     %2d |\n" +
+            "+------------|-------|----------|-------------+\n" +
+            "| TOTAL      |  %2d   |    %2d    |     %2d |\n\n" +
+            "+------------|-------|----------|-------------+\n" +
+            "| Percentual de Ocupacao: %6.1f%%              |"+
+            "===============================================\n\n",
+            motoTotal, motoOcupadas, motoTotal - motoOcupadas,
+            carroTotal, carroOcupadas, carroTotal - carroOcupadas,
+            caminhaoTotal, caminhaoOcupadas, caminhaoTotal - caminhaoOcupadas,
+            total, totalOcupadas, total - totalOcupadas,
+            percentualGeral
+        );
+    }
 }
