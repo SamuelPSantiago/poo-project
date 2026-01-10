@@ -24,7 +24,7 @@ public class TelaSaida extends JDialog {
     }
 
     private void inicializarComponentes() {
-        setSize(450, 350);
+        setSize(450, 420);
         setLocationRelativeTo(getParent());
         setResizable(false);
 
@@ -140,7 +140,7 @@ public class TelaSaida extends JDialog {
             "<b>Tipo:</b> %s<br>" +
             "<b>Vaga:</b> %d<br><br>" +
             "<b>Tempo:</b> %d hora(s)<br>" +
-            "<b style='color: #27ae60; font-size: 16px;'>Valor: R$ %.2f</b>" +
+            "<b style='color: #27ae60; font-size: 14px;'>Valor: R$ %.2f</b>" +
             "</center></html>",
             veiculo.getPlaca(),
             veiculo.getModelo(),
