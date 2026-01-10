@@ -77,7 +77,7 @@ public class TelaPrincipal extends JFrame {
     }
 
     private void abrirTelaRelatorio() {
-        JOptionPane.showMessageDialog(this, "Tela de Relatorio - Em desenvolvimento");
+        new TelaRelatorio(this, estacionamento);
     }
 
     public Estacionamento getEstacionamento() {
