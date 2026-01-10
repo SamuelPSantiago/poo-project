@@ -96,7 +96,7 @@ public class TelaPrincipal extends JFrame {
     }
 
     private void abrirTelaEntrada() {
-        JOptionPane.showMessageDialog(this, "Tela de Entrada - Em desenvolvimento");
+        new TelaEntrada(this, estacionamento);
     }
 
     private void abrirTelaSaida() {
