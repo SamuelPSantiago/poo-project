@@ -73,7 +73,7 @@ public class TelaPrincipal extends JFrame {
     }
 
     private void abrirTelaConsulta() {
-        JOptionPane.showMessageDialog(this, "Tela de Consulta - Em desenvolvimento");
+        new TelaConsulta(this, estacionamento);
     }
 
     private void abrirTelaRelatorio() {
