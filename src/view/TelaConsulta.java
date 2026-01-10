@@ -87,12 +87,25 @@ public class TelaConsulta extends JDialog {
         add(painelPrincipal);
     }
 
+    private boolean validarPlaca(String placa) {
+        String padrao = "^[A-Z]{3}-?[0-9]{4}$|^[A-Z]{3}[0-9][A-Z][0-9]{2}$";
+        return placa.toUpperCase().matches(padrao);
+    }
+
     private void buscarVeiculo() {
-        String placa = txtPlaca.getText().trim();
+        String placa = txtPlaca.getText().trim().toUpperCase();
 
         if (placa.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                 "Digite a placa do veiculo!",
+                "Erro",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!validarPlaca(placa)) {
+            JOptionPane.showMessageDialog(this,
+                "Formato de placa invalido!\nUse: ABC-1234 ou ABC1D23",
                 "Erro",
                 JOptionPane.ERROR_MESSAGE);
             return;

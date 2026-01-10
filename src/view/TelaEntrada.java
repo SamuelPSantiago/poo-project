@@ -84,15 +84,31 @@ public class TelaEntrada extends JDialog {
         add(painelPrincipal);
     }
 
+    private boolean validarPlaca(String placa) {
+        // Formato antigo: ABC-1234 ou ABC1234
+        // Formato Mercosul: ABC1D23
+        String padrao = "^[A-Z]{3}-?[0-9]{4}$|^[A-Z]{3}[0-9][A-Z][0-9]{2}$";
+        return placa.toUpperCase().matches(padrao);
+    }
+
     private void registrarEntrada() {
-        String placa = txtPlaca.getText().trim();
+        String placa = txtPlaca.getText().trim().toUpperCase();
         String modelo = txtModelo.getText().trim();
         String tipo = (String) cmbTipo.getSelectedItem();
 
-        // Validacao
+        // Validacao de campos obrigatorios
         if (placa.isEmpty() || modelo.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                 "Preencha todos os campos!",
+                "Erro",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validacao de formato de placa
+        if (!validarPlaca(placa)) {
+            JOptionPane.showMessageDialog(this,
+                "Formato de placa invalido!\nUse: ABC-1234 ou ABC1D23",
                 "Erro",
                 JOptionPane.ERROR_MESSAGE);
             return;
