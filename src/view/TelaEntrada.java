@@ -2,8 +2,11 @@ package view;
 
 import model.*;
 import service.Estacionamento;
+import utils.ComponenteUtils;
 import javax.swing.*;
 import java.awt.*;
+
+import static utils.ComponenteUtils.*;
 
 public class TelaEntrada extends JDialog {
 
@@ -26,17 +29,17 @@ public class TelaEntrada extends JDialog {
 
         JPanel painelPrincipal = new JPanel(new BorderLayout(10, 10));
         painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        painelPrincipal.setBackground(new Color(236, 240, 241));
+        painelPrincipal.setBackground(COR_FUNDO);
 
         // Titulo
         JLabel titulo = new JLabel("Registrar Entrada de Veiculo", SwingConstants.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 18));
-        titulo.setForeground(new Color(44, 62, 80));
+        titulo.setForeground(COR_TITULO);
         painelPrincipal.add(titulo, BorderLayout.NORTH);
 
         // Formulario
         JPanel painelForm = new JPanel(new GridLayout(3, 2, 10, 15));
-        painelForm.setBackground(new Color(236, 240, 241));
+        painelForm.setBackground(COR_FUNDO);
         painelForm.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
 
         JLabel lblPlaca = new JLabel("Placa:");
@@ -65,23 +68,10 @@ public class TelaEntrada extends JDialog {
 
         // Botoes
         JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
-        painelBotoes.setBackground(new Color(236, 240, 241));
+        painelBotoes.setBackground(COR_FUNDO);
 
-        JButton btnRegistrar = new JButton("Registrar");
-        btnRegistrar.setFont(new Font("Arial", Font.BOLD, 14));
-        btnRegistrar.setBackground(new Color(39, 174, 96));
-        btnRegistrar.setForeground(Color.WHITE);
-        btnRegistrar.setFocusPainted(false);
-        btnRegistrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnRegistrar.setPreferredSize(new Dimension(120, 35));
-
-        JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.setFont(new Font("Arial", Font.BOLD, 14));
-        btnCancelar.setBackground(new Color(192, 57, 43));
-        btnCancelar.setForeground(Color.WHITE);
-        btnCancelar.setFocusPainted(false);
-        btnCancelar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnCancelar.setPreferredSize(new Dimension(120, 35));
+        JButton btnRegistrar = ComponenteUtils.criarBotao("Registrar", COR_SUCESSO, COR_SUCESSO_HOVER, 14);
+        JButton btnCancelar = ComponenteUtils.criarBotao("Cancelar", COR_CANCELAR, COR_CANCELAR_HOVER, 14);
 
         btnRegistrar.addActionListener(e -> registrarEntrada());
         btnCancelar.addActionListener(e -> dispose());

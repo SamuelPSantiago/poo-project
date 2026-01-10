@@ -1,21 +1,15 @@
 package view;
 
 import service.Estacionamento;
+import utils.ComponenteUtils;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+
+import static utils.ComponenteUtils.*;
 
 public class TelaPrincipal extends JFrame {
 
     private Estacionamento estacionamento;
-
-    // Cores do tema
-    private static final Color COR_PRIMARIA = new Color(41, 128, 185);
-    private static final Color COR_HOVER = new Color(52, 152, 219);
-    private static final Color COR_SAIR = new Color(192, 57, 43);
-    private static final Color COR_SAIR_HOVER = new Color(231, 76, 60);
-    private static final Color COR_FUNDO = new Color(236, 240, 241);
-    private static final Color COR_TEXTO = Color.WHITE;
 
     public TelaPrincipal() {
         this.estacionamento = new Estacionamento();
@@ -38,7 +32,7 @@ public class TelaPrincipal extends JFrame {
         // Titulo no topo
         JLabel titulo = new JLabel("Sistema de Estacionamento", SwingConstants.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 28));
-        titulo.setForeground(new Color(44, 62, 80));
+        titulo.setForeground(COR_TITULO);
         painelPrincipal.add(titulo, BorderLayout.NORTH);
 
         // Painel de botoes no centro
@@ -46,11 +40,11 @@ public class TelaPrincipal extends JFrame {
         painelBotoes.setBorder(BorderFactory.createEmptyBorder(30, 100, 30, 100));
         painelBotoes.setBackground(COR_FUNDO);
 
-        JButton btnEntrada = criarBotao("Registrar Entrada", COR_PRIMARIA, COR_HOVER);
-        JButton btnSaida = criarBotao("Registrar Saida", COR_PRIMARIA, COR_HOVER);
-        JButton btnConsulta = criarBotao("Consultar Veiculo", COR_PRIMARIA, COR_HOVER);
-        JButton btnRelatorio = criarBotao("Relatorio de Ocupacao", COR_PRIMARIA, COR_HOVER);
-        JButton btnSair = criarBotao("Sair", COR_SAIR, COR_SAIR_HOVER);
+        JButton btnEntrada = ComponenteUtils.criarBotao("Registrar Entrada", COR_PRIMARIA, COR_PRIMARIA_HOVER, 16);
+        JButton btnSaida = ComponenteUtils.criarBotao("Registrar Saida", COR_PRIMARIA, COR_PRIMARIA_HOVER, 16);
+        JButton btnConsulta = ComponenteUtils.criarBotao("Consultar Veiculo", COR_PRIMARIA, COR_PRIMARIA_HOVER, 16);
+        JButton btnRelatorio = ComponenteUtils.criarBotao("Relatorio de Ocupacao", COR_PRIMARIA, COR_PRIMARIA_HOVER, 16);
+        JButton btnSair = ComponenteUtils.criarBotao("Sair", COR_CANCELAR, COR_CANCELAR_HOVER, 16);
 
         // ActionListeners
         btnEntrada.addActionListener(e -> abrirTelaEntrada());
@@ -70,37 +64,12 @@ public class TelaPrincipal extends JFrame {
         add(painelPrincipal);
     }
 
-    private JButton criarBotao(String texto, Color corNormal, Color corHover) {
-        JButton botao = new JButton(texto);
-        botao.setFont(new Font("Arial", Font.BOLD, 16));
-        botao.setForeground(COR_TEXTO);
-        botao.setBackground(corNormal);
-        botao.setBorder(BorderFactory.createEmptyBorder(15, 25, 15, 25));
-        botao.setFocusPainted(false);
-        botao.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        // Efeito hover
-        botao.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                botao.setBackground(corHover);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                botao.setBackground(corNormal);
-            }
-        });
-
-        return botao;
-    }
-
     private void abrirTelaEntrada() {
         new TelaEntrada(this, estacionamento);
     }
 
     private void abrirTelaSaida() {
-        JOptionPane.showMessageDialog(this, "Tela de Saida - Em desenvolvimento");
+        new TelaSaida(this, estacionamento);
     }
 
     private void abrirTelaConsulta() {
