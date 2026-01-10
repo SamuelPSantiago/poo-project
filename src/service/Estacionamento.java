@@ -108,4 +108,51 @@ public class Estacionamento {
 
         return ticket.getValorPago();
     }
+
+    // Retorna informacoes do veiculo estacionado.
+    public String consultarVeiculo(String placa) {
+        Ticket ticket = buscarTicketPorPlaca(placa);
+        if (ticket == null) {
+            return null;
+        }
+
+        Veiculo veiculo = ticket.getVeiculo();
+        long tempo = ticket.calcularTempo();
+        double valorEstimado = ticket.calcularValor();
+
+        return String.format(
+            "Placa: %s\nModelo: %s\nTipo: %s\nVaga: %d\nTempo: %d hora(s)\nValor Estimado: R$ %.2f",
+            veiculo.getPlaca(),
+            veiculo.getModelo(),
+            veiculo.getTipo(),
+            ticket.getVaga().getId(),
+            tempo,
+            valorEstimado
+        );
+    }
+
+    // Conta vagas disponiveis por tipo.
+    public int contarVagasDisponiveis(String tipo) {
+        int count = 0;
+        for (Vaga vaga : listaVagas) {
+            if (vaga.getTipo().equals(tipo) && !vaga.isOcupada()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // Lista vagas disponiveis por tipo.
+    public String listarVagasDisponiveis() {
+        int motoDisponiveis = contarVagasDisponiveis("Moto");
+        int carroDisponiveis = contarVagasDisponiveis("Carro");
+        int caminhaoDisponiveis = contarVagasDisponiveis("Caminhao");
+
+        return String.format(
+            "Vagas Disponiveis:\n- Moto: %d/10\n- Carro: %d/20\n- Caminhao: %d/5",
+            motoDisponiveis,
+            carroDisponiveis,
+            caminhaoDisponiveis
+        );
+    }
 }
