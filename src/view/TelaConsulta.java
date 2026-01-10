@@ -22,7 +22,7 @@ public class TelaConsulta extends JDialog {
     }
 
     private void inicializarComponentes() {
-        setSize(450, 320);
+        setSize(450, 420);
         setLocationRelativeTo(getParent());
         setResizable(false);
 
@@ -117,7 +117,7 @@ public class TelaConsulta extends JDialog {
             "<b>Tipo:</b> %s<br>" +
             "<b>Vaga:</b> %d<br><br>" +
             "<b>Tempo atual:</b> %d hora(s)<br>" +
-            "<b style='color: #27ae60; font-size: 16px;'>Valor estimado: R$ %.2f</b>" +
+            "<b style='color: #27ae60; font-size: 14px;'>Valor estimado: R$ %.2f</b>" +
             "</center></html>",
             veiculo.getPlaca(),
             veiculo.getModelo(),
