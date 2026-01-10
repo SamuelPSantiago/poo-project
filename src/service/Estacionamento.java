@@ -82,4 +82,30 @@ public class Estacionamento {
 
         return ticket;
     }
+
+    // Busca o ticket ativo de um veiculo pela placa.
+    public Ticket buscarTicketPorPlaca(String placa) {
+        for (Ticket ticket : listaTickets) {
+            if (ticket.getHoraSaida() == null && ticket.getVeiculo().getPlaca().equals(placa)) {
+                return ticket;
+            }
+        }
+        return null;
+    }
+
+    // Registra a saida de um veiculo e retorna o valor a pagar.
+    public double registrarSaida(String placa) {
+        Ticket ticket = buscarTicketPorPlaca(placa);
+        if (ticket == null) {
+            return -1;
+        }
+
+        // Finaliza o ticket
+        ticket.finalizarTicket();
+
+        // Libera a vaga
+        ticket.getVaga().liberar();
+
+        return ticket.getValorPago();
+    }
 }
