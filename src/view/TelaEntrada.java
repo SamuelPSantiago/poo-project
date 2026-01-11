@@ -1,18 +1,16 @@
 package view;
 
-import model.Caminhao;
-import model.Carro;
-import model.Moto;
-import model.Ticket;
-import model.Veiculo;
+import model.*;
 import service.Estacionamento;
-
+import utils.ComponenteUtils;
 import javax.swing.*;
 import java.awt.*;
 
+import static utils.ComponenteUtils.*;
+
 public class TelaEntrada extends JDialog {
 
-    private final Estacionamento estacionamento;
+    private Estacionamento estacionamento;
     private JTextField txtPlaca;
     private JTextField txtModelo;
     private JComboBox<String> cmbTipo;
@@ -30,32 +28,50 @@ public class TelaEntrada extends JDialog {
         setResizable(false);
 
         JPanel painelPrincipal = new JPanel(new BorderLayout(10, 10));
-        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
+        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        painelPrincipal.setBackground(COR_FUNDO);
 
+        // Titulo
         JLabel titulo = new JLabel("Registrar Entrada de Veiculo", SwingConstants.CENTER);
-        titulo.setFont(titulo.getFont().deriveFont(Font.BOLD, 18f));
-        titulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        titulo.setFont(new Font("Arial", Font.BOLD, 18));
+        titulo.setForeground(COR_TITULO);
         painelPrincipal.add(titulo, BorderLayout.NORTH);
 
-        JPanel painelFormulario = new JPanel(new GridLayout(3, 2, 10, 12));
+        // Formulario
+        JPanel painelForm = new JPanel(new GridLayout(3, 2, 10, 15));
+        painelForm.setBackground(COR_FUNDO);
+        painelForm.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
 
-        painelFormulario.add(new JLabel("Placa:"));
+        JLabel lblPlaca = new JLabel("Placa:");
+        lblPlaca.setFont(new Font("Arial", Font.PLAIN, 14));
         txtPlaca = new JTextField();
-        painelFormulario.add(txtPlaca);
+        txtPlaca.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        painelFormulario.add(new JLabel("Modelo:"));
+        JLabel lblModelo = new JLabel("Modelo:");
+        lblModelo.setFont(new Font("Arial", Font.PLAIN, 14));
         txtModelo = new JTextField();
-        painelFormulario.add(txtModelo);
+        txtModelo.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        painelFormulario.add(new JLabel("Tipo:"));
+        JLabel lblTipo = new JLabel("Tipo:");
+        lblTipo.setFont(new Font("Arial", Font.PLAIN, 14));
         cmbTipo = new JComboBox<>(new String[]{"Carro", "Moto", "Caminhao"});
-        painelFormulario.add(cmbTipo);
+        cmbTipo.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        painelPrincipal.add(painelFormulario, BorderLayout.CENTER);
+        painelForm.add(lblPlaca);
+        painelForm.add(txtPlaca);
+        painelForm.add(lblModelo);
+        painelForm.add(txtModelo);
+        painelForm.add(lblTipo);
+        painelForm.add(cmbTipo);
 
-        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        JButton btnRegistrar = new JButton("Registrar");
-        JButton btnCancelar = new JButton("Cancelar");
+        painelPrincipal.add(painelForm, BorderLayout.CENTER);
+
+        // Botoes
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
+        painelBotoes.setBackground(COR_FUNDO);
+
+        JButton btnRegistrar = ComponenteUtils.criarBotao("Registrar", COR_SUCESSO, 14);
+        JButton btnCancelar = ComponenteUtils.criarBotao("Cancelar", COR_CANCELAR, 14);
 
         btnRegistrar.addActionListener(e -> registrarEntrada());
         btnCancelar.addActionListener(e -> dispose());
@@ -69,6 +85,8 @@ public class TelaEntrada extends JDialog {
     }
 
     private boolean validarPlaca(String placa) {
+        // Formato antigo: ABC-1234 ou ABC1234
+        // Formato Mercosul: ABC1D23
         String padrao = "^[A-Z]{3}-?[0-9]{4}$|^[A-Z]{3}[0-9][A-Z][0-9]{2}$";
         return placa.toUpperCase().matches(padrao);
     }
@@ -78,22 +96,25 @@ public class TelaEntrada extends JDialog {
         String modelo = txtModelo.getText().trim();
         String tipo = (String) cmbTipo.getSelectedItem();
 
+        // Validacao de campos obrigatorios
         if (placa.isEmpty() || modelo.isEmpty()) {
             JOptionPane.showMessageDialog(this,
-                    "Preencha todos os campos!",
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE);
+                "Preencha todos os campos!",
+                "Erro",
+                JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        // Validacao de formato de placa
         if (!validarPlaca(placa)) {
             JOptionPane.showMessageDialog(this,
-                    "Formato de placa invalido!\nUse: ABC-1234 ou ABC1D23",
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE);
+                "Formato de placa invalido!\nUse: ABC-1234 ou ABC1D23",
+                "Erro",
+                JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        // Criar veiculo do tipo selecionado
         Veiculo veiculo;
         switch (tipo) {
             case "Carro":
@@ -109,33 +130,44 @@ public class TelaEntrada extends JDialog {
                 return;
         }
 
+        // Registrar entrada
         Ticket ticket = estacionamento.registrarEntrada(veiculo);
 
         if (ticket == null) {
+            // Verificar motivo do erro
             if (estacionamento.buscarVeiculoPorPlaca(placa) != null) {
                 JOptionPane.showMessageDialog(this,
-                        "Veiculo ja esta no estacionamento!",
-                        "Erro",
-                        JOptionPane.ERROR_MESSAGE);
+                    "Veiculo ja esta no estacionamento!",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this,
-                        "Nao ha vagas disponiveis para " + tipo + "!",
-                        "Erro",
-                        JOptionPane.ERROR_MESSAGE);
+                    "Nao ha vagas disponiveis para " + tipo + "!",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
             }
             return;
         }
 
+        // Sucesso
         String mensagem = String.format(
-                "Entrada registrada com sucesso!\n\nTicket: #%d\nPlaca: %s\nModelo: %s\nTipo: %s\nVaga: %d",
-                ticket.getNumero(),
-                placa,
-                modelo,
-                tipo,
-                ticket.getVaga().getId()
+            "Entrada registrada com sucesso!\n\n" +
+            "Ticket: #%d\n" +
+            "Placa: %s\n" +
+            "Modelo: %s\n" +
+            "Tipo: %s\n" +
+            "Vaga: %d",
+            ticket.getNumero(),
+            placa,
+            modelo,
+            tipo,
+            ticket.getVaga().getId()
         );
 
-        JOptionPane.showMessageDialog(this, mensagem, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this,
+            mensagem,
+            "Sucesso",
+            JOptionPane.INFORMATION_MESSAGE);
 
         dispose();
     }
