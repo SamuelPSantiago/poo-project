@@ -51,7 +51,7 @@ public class TelaSaida extends JDialog {
         txtPlaca = new JTextField(12);
         txtPlaca.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        JButton btnBuscar = ComponenteUtils.criarBotao("Buscar", COR_PRIMARIA, COR_PRIMARIA_HOVER, 14);
+        JButton btnBuscar = ComponenteUtils.criarBotao("Buscar", COR_PRIMARIA, 14);
         btnBuscar.addActionListener(e -> buscarVeiculo());
 
         painelBusca.add(lblPlaca);
@@ -79,12 +79,12 @@ public class TelaSaida extends JDialog {
         JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         painelBotoes.setBackground(COR_FUNDO);
 
-        btnConfirmar = ComponenteUtils.criarBotao("Confirmar Saida", COR_SUCESSO, COR_SUCESSO_HOVER, 14);
+        btnConfirmar = ComponenteUtils.criarBotao("Confirmar Saida", COR_SUCESSO, 14);
         btnConfirmar.setBackground(COR_SUCESSO_DESABILITADO);
         btnConfirmar.setEnabled(false);
         btnConfirmar.addActionListener(e -> confirmarSaida());
 
-        JButton btnCancelar = ComponenteUtils.criarBotao("Cancelar", COR_CANCELAR, COR_CANCELAR_HOVER, 14);
+        JButton btnCancelar = ComponenteUtils.criarBotao("Cancelar", COR_CANCELAR, 14);
         btnCancelar.addActionListener(e -> dispose());
 
         painelBotoes.add(btnConfirmar);

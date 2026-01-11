@@ -40,23 +40,20 @@ public class TelaPrincipal extends JFrame {
         painelBotoes.setBorder(BorderFactory.createEmptyBorder(30, 100, 30, 100));
         painelBotoes.setBackground(COR_FUNDO);
 
-        JButton btnEntrada = ComponenteUtils.criarBotao("Registrar Entrada", COR_PRIMARIA, COR_PRIMARIA_HOVER, 16);
-        JButton btnSaida = ComponenteUtils.criarBotao("Registrar Saida", COR_PRIMARIA, COR_PRIMARIA_HOVER, 16);
-        JButton btnConsulta = ComponenteUtils.criarBotao("Consultar Veiculo", COR_PRIMARIA, COR_PRIMARIA_HOVER, 16);
-        JButton btnRelatorio = ComponenteUtils.criarBotao("Relatorio de Ocupacao", COR_PRIMARIA, COR_PRIMARIA_HOVER, 16);
-        JButton btnSair = ComponenteUtils.criarBotao("Sair", COR_CANCELAR, COR_CANCELAR_HOVER, 16);
+        JButton btnEntrada = ComponenteUtils.criarBotao("Registrar Entrada", COR_PRIMARIA, 16);
+        JButton btnSaida = ComponenteUtils.criarBotao("Registrar Saida", COR_PRIMARIA, 16);
+        JButton btnConsulta = ComponenteUtils.criarBotao("Consultar Veiculo", COR_PRIMARIA, 16);
+        JButton btnSair = ComponenteUtils.criarBotao("Sair", COR_CANCELAR, 16);
 
         // ActionListeners
         btnEntrada.addActionListener(e -> abrirTelaEntrada());
         btnSaida.addActionListener(e -> abrirTelaSaida());
         btnConsulta.addActionListener(e -> abrirTelaConsulta());
-        btnRelatorio.addActionListener(e -> abrirTelaRelatorio());
         btnSair.addActionListener(e -> System.exit(0));
 
         painelBotoes.add(btnEntrada);
         painelBotoes.add(btnSaida);
         painelBotoes.add(btnConsulta);
-        painelBotoes.add(btnRelatorio);
         painelBotoes.add(btnSair);
 
         painelPrincipal.add(painelBotoes, BorderLayout.CENTER);
@@ -74,10 +71,6 @@ public class TelaPrincipal extends JFrame {
 
     private void abrirTelaConsulta() {
         new TelaConsulta(this, estacionamento);
-    }
-
-    private void abrirTelaRelatorio() {
-        new TelaRelatorio(this, estacionamento);
     }
 
     public Estacionamento getEstacionamento() {

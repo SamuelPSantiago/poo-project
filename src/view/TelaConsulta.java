@@ -49,7 +49,7 @@ public class TelaConsulta extends JDialog {
         txtPlaca = new JTextField(12);
         txtPlaca.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        JButton btnBuscar = ComponenteUtils.criarBotao("Buscar", COR_PRIMARIA, COR_PRIMARIA_HOVER, 14);
+        JButton btnBuscar = ComponenteUtils.criarBotao("Buscar", COR_PRIMARIA, 14);
         btnBuscar.addActionListener(e -> buscarVeiculo());
 
         painelBusca.add(lblPlaca);
@@ -77,7 +77,7 @@ public class TelaConsulta extends JDialog {
         JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         painelBotoes.setBackground(COR_FUNDO);
 
-        JButton btnFechar = ComponenteUtils.criarBotao("Fechar", COR_CANCELAR, COR_CANCELAR_HOVER, 14);
+        JButton btnFechar = ComponenteUtils.criarBotao("Fechar", COR_CANCELAR, 14);
         btnFechar.addActionListener(e -> dispose());
 
         painelBotoes.add(btnFechar);

@@ -17,4 +17,5 @@ public class Caminhao extends Veiculo {
     public String getTipo() {
         return "Caminhao";
     }
+    
 }
