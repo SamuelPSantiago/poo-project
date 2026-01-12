@@ -85,8 +85,6 @@ public class TelaEntrada extends JDialog {
     }
 
     private boolean validarPlaca(String placa) {
-        // Formato antigo: ABC-1234 ou ABC1234
-        // Formato Mercosul: ABC1D23
         String padrao = "^[A-Z]{3}-?[0-9]{4}$|^[A-Z]{3}[0-9][A-Z][0-9]{2}$";
         return placa.toUpperCase().matches(padrao);
     }

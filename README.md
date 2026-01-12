@@ -63,12 +63,10 @@ poo-project/
 
 - Cadastro de veículos (Carro, Moto, Caminhão)
 - Controle de entrada e saída
-- Gerenciamento de vagas por tipo
 - Cálculo automático de tarifas
 - Emissão de tickets
 - Liberação automática de vagas
 - Consulta de veículo por placa
-- Relatório de ocupação
 - Validação de formato de placa (antigo e Mercosul)
 
 ## Conceitos de POO Aplicados

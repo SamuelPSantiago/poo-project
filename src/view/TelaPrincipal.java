@@ -72,8 +72,4 @@ public class TelaPrincipal extends JFrame {
     private void abrirTelaConsulta() {
         new TelaConsulta(this, estacionamento);
     }
-
-    public Estacionamento getEstacionamento() {
-        return estacionamento;
-    }
 }
